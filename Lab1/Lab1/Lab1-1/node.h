@@ -14,6 +14,7 @@ typedef struct NODE {
 
 typedef struct {
 	node *head;
+	int size;
 } list;
 
 // function prototypes

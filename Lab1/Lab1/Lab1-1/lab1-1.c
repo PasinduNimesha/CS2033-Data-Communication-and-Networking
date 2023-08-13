@@ -1,42 +1,83 @@
-// general purpose standard C lib
 #include <stdio.h>
-#include <stdlib.h> // stdlib includes malloc() and free()
-
-// user-defined header files
+#include <stdlib.h>
 #include "node.h"
-
-// macros
 
 #define INSERT_BEFORE 1
 #define INSERT_AFTER 2
 #define DELETE_NODE 3
 #define DELETE_LIST 4
 
-// function prototypes
-void print_list(list * lst); 
-void run(list * lst);
+// Function prototypes
+void print_list(list *lst);
+void run(list *lst);
 
-
-int main()
-{
-    list * lst = (list *) malloc(sizeof(list));
+int main() {
+    list *lst = (list *)malloc(sizeof(list));
     lst->head = NULL;
-	run(lst);
+    run(lst);
     print_list(lst);
-    free(lst);
-	return 0;
+    delete_list(lst);
+    return 0;
 }
 
-// parse the input
-void run(list *lst) 
-{
-    
-	
+void run(list *lst) {
+    int choice, index;
+    char word[MAX_WORD_LENGTH];
+
+    while (1) {
+        printf("Choose an option:\n");
+        printf("1. Insert before\n");
+        printf("2. Insert after\n");
+        printf("3. Delete node\n");
+        printf("4. Delete list\n");
+        printf("0. Exit\n");
+        scanf("%d", &choice);
+
+        if (choice == 0) {
+            break;
+        }
+
+        switch (choice) {
+            case INSERT_BEFORE:
+                printf("Enter index and word: ");
+                scanf("%d %s", &index, word);
+                insert_node_before(lst, index, word);
+                break;
+
+            case INSERT_AFTER:
+                printf("Enter index and word: ");
+                scanf("%d %s", &index, word);
+                insert_node_after(lst, index, word);
+                break;
+
+            case DELETE_NODE:
+                printf("Enter index: ");
+                scanf("%d", &index);
+                delete_node(lst, index);
+                break;
+
+            case DELETE_LIST:
+                delete_list(lst);
+                break;
+
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+    }
 }
 
-//Print the list contents
-void print_list(list * lst)
-{
-   
+void print_list(list *lst) {
+    node *current = lst->head;
+
+    printf("Linked List: ");
+    if (current != NULL) {
+        do {
+            printf("%s ", current->word);
+            current = current->next;
+        } while (current != lst->head);
+    }
+    printf("\n");
 }
+
 
