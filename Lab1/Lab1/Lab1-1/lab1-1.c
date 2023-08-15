@@ -13,7 +13,11 @@ void run(list *lst);
 
 int main() {
     list *lst = (list *)malloc(sizeof(list));
+    char initial_words[][MAX_WORD_LENGTH] = {"Sri", "Lanka", "is", "a", "Country"};
     lst->head = NULL;
+    for(int i = 0; i < 5; i++) {
+        insert_node_before(lst, i, initial_words[i]);
+    }
     run(lst);
     print_list(lst);
     delete_list(lst);
