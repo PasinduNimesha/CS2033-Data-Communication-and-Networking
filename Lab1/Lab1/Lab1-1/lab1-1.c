@@ -13,9 +13,9 @@ void run(list *lst);
 
 int main() {
     list *lst = (list *)malloc(sizeof(list));
-    char initial_words[][MAX_WORD_LENGTH] = {"Sri", "Lanka", "is", "a", "Country"};
+    char initial_words[][MAX_WORD_LENGTH] = {"To","be","or","to","be","that","is","not","the"};
     lst->head = NULL;
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < sizeof(initial_words)/sizeof(initial_words[0]); i++) {
         insert_node_before(lst, i, initial_words[i]);
     }
     run(lst);
@@ -29,12 +29,12 @@ void run(list *lst) {
     char word[MAX_WORD_LENGTH];
 
     while (1) {
-        printf("Choose an option:\n");
-        printf("1. Insert before\n");
-        printf("2. Insert after\n");
-        printf("3. Delete node\n");
-        printf("4. Delete list\n");
-        printf("0. Exit\n");
+        // printf("Choose an option:\n");
+        // printf("1. Insert before\n");
+        // printf("2. Insert after\n");
+        // printf("3. Delete node\n");
+        // printf("4. Delete list\n");
+        // printf("0. Exit\n");
         scanf("%d", &choice);
 
         if (choice == 0) {
@@ -43,19 +43,19 @@ void run(list *lst) {
 
         switch (choice) {
             case INSERT_BEFORE:
-                printf("Enter index and word: ");
+                // printf("Enter index and word: ");
                 scanf("%d %s", &index, word);
                 insert_node_before(lst, index, word);
                 break;
 
             case INSERT_AFTER:
-                printf("Enter index and word: ");
+                // printf("Enter index and word: ");
                 scanf("%d %s", &index, word);
                 insert_node_after(lst, index, word);
                 break;
 
             case DELETE_NODE:
-                printf("Enter index: ");
+                // printf("Enter index: ");
                 scanf("%d", &index);
                 delete_node(lst, index);
                 break;
@@ -65,7 +65,7 @@ void run(list *lst) {
                 break;
 
             default:
-                printf("Invalid choice\n");
+                // printf("Invalid choice\n");
                 break;
         }
     }
@@ -74,7 +74,7 @@ void run(list *lst) {
 void print_list(list *lst) {
     node *current = lst->head;
 
-    printf("Linked List: ");
+    // printf("Linked List: ");
     if (current != NULL) {
         do {
             printf("%s ", current->word);

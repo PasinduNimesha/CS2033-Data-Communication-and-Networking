@@ -3,6 +3,7 @@
 #include <string.h> // includes memcpy()
 
 #include "chain.h" // do not modify this file
+#include <math.h>
 
 // put your function prototypes for additional helper functions below:
 
@@ -108,3 +109,68 @@ void print_matrix(matrix *mat)
 }
 
 //Add the rest of the functions needed for the chain below
+
+node *create_node(matrix *mat) {
+    node *new_node = (node *)malloc(sizeof(node));
+    if (new_node == NULL) {
+        fprintf(stderr, "Memory allocation error\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    new_node->prev = NULL;
+    new_node->next = NULL;
+    
+    // Create a copy of the matrix
+    matrix *mat_copy = create_matrix(mat->num_rows, mat->num_cols);
+    for (int i = 0; i < mat->num_rows; ++i) {
+        for (int j = 0; j < mat->num_cols; ++j) {
+            mat_copy->data[i][j] = mat->data[i][j];
+        }
+    }
+    
+    new_node->mat = mat_copy;
+    return new_node;
+}
+
+
+void insert_node_before(chain *chn, int index, matrix *mat) {
+    node *new_node = create_node(mat);
+    
+
+    if (chn->head == NULL) {
+        chn->head = new_node;
+        new_node->next = NULL;
+        new_node->prev = NULL;
+        return;
+    }
+
+    node *current = chn->head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+
+    new_node->prev = current->prev;
+    new_node->next = current;
+    current->prev->next = new_node;
+    current->prev = new_node;
+}
+
+// Insert a new node after the node at the given index
+void insert_node_after(chain *chn, int index, matrix *mat) {
+    node *new_node = create_node(mat);
+    
+
+    if (chn->head == NULL) {
+        chn->head = new_node;
+        new_node->next = NULL;
+        new_node->prev = NULL;
+        return;
+    }
+
+    node *current = chn->head;
+    for (int i = 0; i < index; i++) {
+        current = current->next;
+    }
+
+    current->next = new_node;
+}
